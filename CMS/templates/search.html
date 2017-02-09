@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ search_text }}的搜索界面_下载地址列表{% endblock %}
+{% block keywords %}{{ search_text }}下载，全力搜，搜索结果，百度网盘文件网盘搜索,百度网盘搜索,百度网盘下载{% endblock %}
+{% block description %}{{ search_text }}的搜索结果，{{ search_text }}的百度网盘页面、磁力连接等网盘下载，干净、快捷、无广告{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="col-md-12">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">
+                    共有 {{ length }} 条{{ search_text }}的搜索结果
+                </h4>
+            </a>
+            {% for f in search_result %}
+            <a href="{% url 'fileinfo' f.userId  f.id %}" class="list-group-item">
+                <span class="list-group-item-text">
+                    {{ f.title }}
+                </span>
+                <span style="float:right;margin-right:20px;">
+                        <script type="text/javascript">
+                        var d = new Date(parseInt({{ f.addTime }}) * 1000)
+                        document.write(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate())
+                        </script>
+                    </span>
+            </a>
+            {% endfor %}
+        </div>
+        <ul class="pager">
+            {% if page_num == '1' %}
+            <li class="previous disabled"><a href="#">&larr; 上一页</a></li>
+            {% else %}
+            <li class="previous"><a href="/search/{{ page_num|add:-1 }}/?wd={{ search_text }}">&larr; 上一页</a></li>
+            {% endif %}
+            {% if page_num|add:"0" >= total_num|add:"0" %}
+            <li class="next disabled"><a href="#">下一页 &rarr;</a></li>
+            {% else %}
+            <li class="next"><a href="/search/{{ page_num|add:1 }}/?wd={{ search_text }}">下一页 &rarr;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

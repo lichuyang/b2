@@ -1,0 +1,16 @@
+.footer{
+    width:100%;
+    text-align:center;
+    margin:20px auto;
+}
+.d-title{
+    font-size:16px;
+    font-family:微软雅黑;
+    float:left;
+    margin-top:10px;
+}
+.d-text{
+    font-size:16px;
+    font-family:华文细黑;
+    margin-top:10px;
+}

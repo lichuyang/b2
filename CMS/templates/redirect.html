@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}下载跳转页面{% endblock %}
+{% block keywords %}{{ file_detail.title }}，{{ file_detail.title }}下载，，下载跳转，全力搜，百度网盘文件,文件直接下载，网盘搜索,百度网盘搜索,百度网盘下载{% endblock %}
+{% block description %}{{ file_detail.title }}的直接下载跳转页面，{{ file_detail.title }}的百度网盘页面、磁力连接等网盘下载，干净、快捷、无广告{% endblock %}
+{% block content %}
+<script type="text/javascript">
+    setTimeout(function() {
+    window.location.href = '{{ url|escapejs }}';
+}, 1000 * 3);
+</script>
+<div style="text-align:center"><a href="{{ url }}">正在跳转中,点击马上跳转</a></div>
+{% endblock %}

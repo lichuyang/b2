@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ file_detail.title }}{% endblock %}
+{% block keywords %}{{ file_detail.title }}，{{ file_detail.title }}下载，全力搜，百度网盘文件,文件直接下载，网盘搜索,百度网盘搜索,百度网盘下载{% endblock %}
+{% block description %}{{ file_detail.title }}的直接下载连接，{{ file_detail.title }}的百度网盘页面、磁力连接等网盘下载，干净、快捷、无广告{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-3">
+        <div style="height:280px;width:182px;border:1px solid #000">
+            <a href="{% url 'user' file_detail.userId  1 %}" class="col-md-1/2"
+               style="width:100%;text-align:center;margin:0 auto;">
+                <img src="{{ file_detail.userAvaUrl }}" alt="{{ file_detail.userName }}" class="img-rounded"
+                     style="width:180px;word-wrap: break-word;text-align:center">
+            </a>
+            <div style="padding:0 5px;font-size:18px">
+            <div style="margin-top:10px;width:100%;">
+                用户名:<a href="{% url 'user' file_detail.userId  1 %}">{{ file_detail.userName }}</a>
+            </div>
+            <div style="margin-top:10px;width100%">订阅时间:{{ user_add_time }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="d-title">文件名：</div><div class="d-text">{{ file_detail.title }}</div>
+        <div class="d-title">百度网盘下载地址：</div><div class="d-text" ><a target="_blank" href="{% url 'redirect' file_detail.userId  file_detail.id %}">
+        <button type="button" class="btn btn-primary">百度网盘下载</button></a></div>
+        <div class="d-title">
+            点击量：</div><div class="d-text"> {{ file_detail.hits }} 次</div>
+        <div class="d-title">
+            下载量：</div><div class="d-text"> {{ file_detail.downloads }} 次</div>
+        <div class="d-title">
+            添加时间：</div><div class="d-text"> <script type="text/javascript">
+                        var d = new Date(parseInt({{ file_detail.addTime }}) * 1000)
+                        document.write(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate())
+                        </script>
+        </div>
+        <div class="d-title">
+            标签：</div>{% for t in tags %}<div class="d-text" style="float:left"> <a href="/search/1/?wd={{ t }}">{{ t }}</a>,&nbsp;</div>{% endfor %}
+    </div>
+    <div class="col-md-3">
+         <a href="#" class="list-group-item active">
+                            <h4 class="list-group-item-heading">
+                                相关资源推荐
+                            </h4>
+                        </a>{% for r in related_shares %}
+                        <a href="{% url 'fileinfo' r.userId  r.id %}" class="list-group-item">
+                            <p class="list-group-item-text">
+                                {{ r.title }}
+                                <span style="float:right">浏览量 {{ r.hits }}</span>
+                            </p>
+                        </a>
+                        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

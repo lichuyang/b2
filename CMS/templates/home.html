@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}首页{% endblock %}
+{% block keywords %}全力搜，百度网盘,网盘搜索,百度网盘搜索,百度网盘下载,网盘下载，磁力下载,百度云盘搜索,site:pan.baidu.com,pan.baidu.com百度云搜索{% endblock %}
+{% block description %}全力搜-百度网盘资源搜索引擎，最好的百度网盘资源搜索网站，各种网盘资源搜索，检索百度网盘热门资源、磁力链接资源、各种网盘资源，提供直接下载连接，干净、快捷、无广告{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+    function getLocalTime(nS) {
+      return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+    }
+</script>
+<div class="container">
+    <div class="col-md-12">
+        <div class="col-md-9">
+            <div>
+                <div class="col-md-6">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                            <h4 class="list-group-item-heading">
+                                最近更新
+                            </h4>
+                        </a>
+                        {% for f in file_infos %}
+                        <a href="{% url 'fileinfo' f.userId  f.id %}" class="list-group-item">
+                            <p class="list-group-item-text">
+                                {{ f.title }}
+                                <span style="float:right;margin-right:20px;">
+                        <script type="text/javascript">
+                        var d = new Date(parseInt({{ f.addTime }}) * 1000)
+                        document.write(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate())
+                        </script>
+                    </span>
+                            </p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                            <h4 class="list-group-item-heading">
+                                资源下载排行
+                            </h4>
+                        </a>{% for f in hot_download_post %}
+                        <a href="{% url 'fileinfo' f.userId  f.id %}" class="list-group-item">
+                            <p class="list-group-item-text">
+                                {{ f.title }}
+                                <span style="float:right">下载量 {{ f.downloads }}</span>
+                            </p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-6">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                            <h4 class="list-group-item-heading">
+                                资源浏览排行
+                            </h4>
+                        </a>{% for f in hot_read_post %}
+                        <a href="{% url 'fileinfo' f.userId  f.id %}" class="list-group-item">
+                            <p class="list-group-item-text">
+                                {{ f.title }}
+                                <span style="float:right">浏览量 {{ f.hits }}</span>
+                            </p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                            <h4 class="list-group-item-heading">
+                                热门搜索下载
+                            </h4>
+                        </a>{% for f in hot_search_post %}
+                         <a href="/search/1/?wd={{ f.searchText }}" class="list-group-item">
+                            <p class="list-group-item-text">
+                                {{ f.searchText }}
+                                <span style="float:right">搜索量 {{ f.searchCount }}</span>
+                            </p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">
+                        热门分享
+                    </h4>
+                </a>
+                <a href="{% url 'user' random_userid  1 %}"><p class="list-group-item-text">
+                    <img src="{{ random_useravaurl }}" alt="{{ random_username }}" class="img-circle"
+                         style="width:60px;word-wrap: break-word;">
+                    {{ random_username }}</p></a>
+                {% for s in random_post %}
+                <a href="{% url 'fileinfo' s.userId  s.id %}" class="list-group-item">
+                    <p class="list-group-item-text">
+                        {{ s.title }}
+                    </p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="col-md-12">
+        <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">
+                热门用户
+            </h4>
+        </a>
+        {% for s in hot_users %}
+        <a href="{% url 'user' s.id  1 %}" class="col-md-1/2">
+                    <img src="{{ s.userAvaUrl }}" alt="{{ s.userName }}" class="img-circle"
+                         style="width:20px;word-wrap: break-word;text-align:center">
+
+        </a>
+        {% endfor %}
+    </div>-->
+</div>
+{% endblock %}
