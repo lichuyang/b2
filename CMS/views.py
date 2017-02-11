@@ -6,6 +6,7 @@ from django.db import connection
 import time
 import json
 import jieba.analyse
+from django.http import HttpResponseRedirect
 # Create your views here.
 def index(request):
     cursor = connection.cursor()
@@ -136,3 +137,6 @@ def apisearch(request, page_num):
         dataA.append(result_data)
         return_data = {'count': length, 'index' : page_num, 'data': dataA}
     return HttpResponse(json.dumps(return_data, ensure_ascii=False))
+
+def download(requers):
+    return HttpResponseRedirect('http://www.xxx.com/static/quanlisou.apk')

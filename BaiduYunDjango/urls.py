@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^v1/search/(\d+)/$', views.apisearch, name = 'apisearch'),
     url(r'^user-(\d+)-(\d+).html', views.user, name = 'user'),
     url(r'^admin/', admin.site.urls),
+    url(r'^baidu/', views.index, name = 'home'),
     url(r'^static/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
+    url(r'^download/', views.download, name = 'download'),
     #url(r'^static/(?P<path>.*)$', django.views.static.serve, {'document_root': '/root/www/BaiduYunDjango/CMS/static'}),
 ]
